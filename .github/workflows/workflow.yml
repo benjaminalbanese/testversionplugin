@@ -23,6 +23,7 @@ jobs:
           release_branches: main
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
+      #test
       - name: Verify and print new build number
         run: |
           if echo '${{ steps.semanticversion.outputs.new_tag }}' |grep -Eq '^v[0-9]+[.][0-9]+[.][0-9]+$'; then
