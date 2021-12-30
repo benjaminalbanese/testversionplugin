@@ -14,7 +14,7 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      ## Set new version#3122
+      ## Set new version#3122asf
       - name: Bump version and create tag
         id: semanticversion
         uses: hennejg/github-tag-action@v4.2.4
