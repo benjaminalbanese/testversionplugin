@@ -23,7 +23,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           tag_prefix: 'haupt-'
 
-      #wtf?3
+      #wtf?4
       - name: Verify and print new build number
         run: |
           if echo '${{ steps.semanticversion.outputs.new_tag }}' |grep -Eq '^haupt-[0-9]+[.][0-9]+[.][0-9]+$'; then
