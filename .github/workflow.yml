@@ -1,0 +1,38 @@
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 90
+    env:
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.REPO_PTA }}
+
+      ## Set new version
+      - name: Bump version and create tag
+        id: semanticversion
+        uses: hennejg/github-tag-action@v4.2.4
+        with:
+          release_branches: main
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify and print new build number
+        run: |
+          if echo '${{ steps.semanticversion.outputs.new_tag }}' |grep -Eq '^[0-9]+[.][0-9]+[.][0-9]+$'; then
+            echo Tag '${{ steps.semanticversion.outputs.new_tag }}', New version '${{ steps.semanticversion.outputs.new_version }}', Changelog '${{ steps.semanticversion.outputs.changelog }}'
+          else
+            echo 'unexpected tag format - aborting'
+            exit -1
+          fi
+
+      - name: Set version variable
+        run: |
+          echo "NEW_VERSION=${{ steps.semanticversion.outputs.new_version }}" >> $GITHUB_ENV
