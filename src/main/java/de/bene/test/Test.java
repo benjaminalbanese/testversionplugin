@@ -10,7 +10,7 @@ public class Test {
   public static void main(String[] args) {
     String test = """
         Dies ist ein Test
-        Der Test geht über 2 Zeilen
+        Der Test geht über 2 Zeilenebeb
         """;
     System.out.println(test);
     try {
